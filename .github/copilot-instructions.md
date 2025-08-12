@@ -12,7 +12,7 @@ This project is a simple signals library. It supports both signals and react int
 ## Coding Standards
 
 - Use semicolons at the end of each statement.
-- Use double qoutes for strings.
+- Use double quotes for strings.
 - Use arrow functions for callbacks.
 - Use idiomatic naming.
 - Use camelcase.
