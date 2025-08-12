@@ -1,12 +1,12 @@
 # Project Overview
 
-This project is a simple signals library. It supports both signals and react intergration with signalState and SignalBinding.
+This project is a simple signals library. It supports both signals and react integration with signalState and SignalBinding.
 
 ## Folder Structure
 
 - `/src`: Contains the source code for the signals
 - `/src/core`: Contains the core files needed for computedSignals and signals to work.
-- `/src/react`: Contains the intergration files to make signals work with react.
+- `/src/react`: Contains the integration files to make signals work with react.
 - `/tests`: Contains the test files for all the logic in `/src`
 
 ## Coding Standards
