@@ -15,5 +15,5 @@ This project is a simple signals library. It supports both signals and react int
 - Use double quotes for strings.
 - Use arrow functions for callbacks.
 - Use idiomatic naming.
-- Use camelcase.
+- Use camelCase.
 - Use verb-based naming guidelines.
