@@ -1,6 +1,6 @@
 # Nun-Signals
 
-### Why Signals?
+## Why Signals?
 Signals provide a clean and predictable way to manage state by allowing components to subscribe only to the precise pieces of data they care about. This leads to:
 
 * **More predictable updates**, components re-render only when relevant data changes.
@@ -22,7 +22,7 @@ Signals provide a clean and predictable way to manage state by allowing componen
 
     * **useSignalBinding:** converts signals into bindings that enable granular updates for components supporting bindings.
 
-#### When to Use useSignalState vs useSignalBinding
+### When to Use useSignalState vs useSignalBinding
 * **Bindings:**
 Perfect for fine-grained updates by changing only the parts of the UI that need it.
 **Note:** Components must explicitly support bindings to take advantage of this.
@@ -33,7 +33,7 @@ Triggers full component re-renders when the signal changes.
 
 Use bindings when you want maximum performance with compatible components. Use useSignalState for wider compatibility or simpler cases.
 
-Getting Started
+### Getting Started
 
 ~~~js
 import { createSignal, computed, useSignalState, useSignalBinding } from "nun-signals";
