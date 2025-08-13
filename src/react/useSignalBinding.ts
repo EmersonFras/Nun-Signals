@@ -1,11 +1,9 @@
 import { useRef } from "react";
-import type { BindingSignal } from "../types";
+import type { BaseSignal } from "../types";
 
-export function useSignalBinding<T>(
-  signal: { get: () => T; subscribe: (cb: (value: T) => void) => () => void }
-): BindingSignal<T> {
+export function useSignalBinding<T>(signal: BaseSignal<T>): BaseSignal<T> {
   // Keep the same binding object across renders
-  const bindingRef = useRef<BindingSignal<T> | null>(null)
+  const bindingRef = useRef<BaseSignal<T> | null>(null)
 
   if (!bindingRef.current) {
     bindingRef.current = {

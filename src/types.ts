@@ -1,11 +1,16 @@
-export interface Computation {
-  recompute: () => void;
-  get: () => any;
-  subscribe:  (callback: () => void) => () => void;
-  id?: string | number;
+
+
+export type BaseSignal<T> = {
+    get: () => T;
+    subscribe: (callback: (value: T) => void) => () => void;
 }
 
-export type BindingSignal<T> = {
-  get: () => T
-  subscribe: (listener: (value: T) => void) => () => void
+export interface Signal<T> extends BaseSignal<T> {
+  set(value: T): void;
 }
+
+export interface ComputedSignal<T> extends BaseSignal<T> {
+  recompute: () => void;
+}
+
+export type BindingSignal<T> = BaseSignal<T>;

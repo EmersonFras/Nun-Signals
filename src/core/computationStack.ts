@@ -1,8 +1,8 @@
-import type { Computation } from "../types"
+import type { ComputedSignal } from "../types"
 
-const computationStack: Computation[] = [];
+const computationStack: ComputedSignal<any>[] = [];
 
-export function pushComputation(computation: Computation) {
+export function pushComputation<T>(computation: ComputedSignal<T>) {
     computationStack.push(computation);
 }
 

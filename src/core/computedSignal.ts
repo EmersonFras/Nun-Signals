@@ -1,10 +1,10 @@
 import { getCurrentComputation, popComputation, pushComputation } from "./computationStack";
-import type { Computation } from "../types";
+import type { ComputedSignal } from "../types";
 
-export function computedSignal<T>(fn: () => T): Computation {
+export function computedSignal<T>(fn: () => T): ComputedSignal<T> {
     let value: T;
-    const subscribers = new Set<() => void>();
-    const computed = {} as Computation; 
+    const subscribers = new Set<(value: T) => void>();
+    const computed = {} as ComputedSignal<T>; 
 
     computed.recompute = () => {
         pushComputation(computed)
@@ -13,7 +13,7 @@ export function computedSignal<T>(fn: () => T): Computation {
 
         if (!Object.is(value, newValue)) {
             value = newValue;
-            subscribers.forEach(fn => fn())
+            subscribers.forEach(fn => fn(value))
         }
     };
 
@@ -26,12 +26,11 @@ export function computedSignal<T>(fn: () => T): Computation {
         return value;
     };
 
-    computed.subscribe = (callback: () => void) => {
-        subscribers.add(callback);
+    computed.subscribe = (callback: (value: T) => void) => {
+        subscribers.add(callback);  
         return () => subscribers.delete(callback);
     }
 
     computed.recompute();
-
     return computed;
 }

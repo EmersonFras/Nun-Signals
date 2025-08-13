@@ -36,17 +36,18 @@ Use bindings when you want maximum performance with compatible components. Use u
 ### Getting Started
 
 ~~~js
-import { createSignal, computed, useSignalState, useSignalBinding } from "nun-signals";
+import { createSignal, computedSignal, useSignalState } from "nun-signals";
 
 // Create a signal
 const count = createSignal(0);
 
 // Create a computed signal
-const doubled = computed(() => count.get() * 2);
+const doubled = computedSignal(() => count.get() * 2);
 
 // React component with state hook
 function Counter() {
   const value = useSignalState(count);
-  return <button onClick={() => count.set(value + 1)}>{value}</button>;
+  const doubledValue = useSignalState(doubled);
+  return <button onClick={() => count.set(value + 1)}>{value} and {doubledValue}</button>;
 }
 ~~~
