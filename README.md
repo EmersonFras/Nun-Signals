@@ -48,6 +48,6 @@ const doubled = computedSignal(() => count.get() * 2);
 function Counter() {
   const value = useSignalState(count);
   const doubledValue = useSignalState(doubled);
-  return <button onClick={() => count.set(value + 1)}>{value} and {doubled}</button>;
+  return <button onClick={() => count.set(value + 1)}>{value} and {doubledValue}</button>;
 }
 ~~~
