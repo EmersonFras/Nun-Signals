@@ -3,7 +3,7 @@ export interface Computation {
 }
 
 export type BaseSignal<T> = {
-    get: () => any;
+    get: () => T;
     subscribe: (callback: (value: T) => void) => () => void;
 }
 
