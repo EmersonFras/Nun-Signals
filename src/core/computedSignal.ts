@@ -27,8 +27,7 @@ export function computedSignal<T>(fn: () => T): Computation & BaseSignal<T> {
     };
 
     computed.subscribe = (callback: (value: T) => void) => {
-        subscribers.add(callback);
-        callback(value);
+        subscribers.add(callback);  
         return () => subscribers.delete(callback);
     }
 
