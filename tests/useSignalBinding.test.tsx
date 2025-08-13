@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { render, screen, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { computedSignal, createSignal, useSignalBinding, BaseSignal } from "../src/index";
+import { computedSignal, createSignal, useSignalBinding, BindingSignal } from "../src/index";
 
 // --- Simple test signal implementation ---
 function createTestSignal<T>(initial: T) {
@@ -22,7 +22,7 @@ function createTestSignal<T>(initial: T) {
 }
 
 // --- Test component ---
-function BoundLabel({ binding }: { binding: BaseSignal<number> }) {
+function BoundLabel({ binding }: { binding: BindingSignal<number> }) {
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -78,7 +78,7 @@ describe("useSignalBinding", () => {
   it("keeps stable binding identity", () => {
     const signal = createTestSignal(1);
 
-    let firstBinding: BaseSignal<number> | null = null;
+    let firstBinding: BindingSignal<number> | null = null;
     function TestComponent() {
       const binding = useSignalBinding(signal);
       if (!firstBinding) firstBinding = binding;

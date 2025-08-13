@@ -1,10 +1,10 @@
 import { getCurrentComputation, popComputation, pushComputation } from "./computationStack";
-import type { Computation, BaseSignal } from "../types";
+import type { ComputedSignal } from "../types";
 
-export function computedSignal<T>(fn: () => T): Computation & BaseSignal<T> {
+export function computedSignal<T>(fn: () => T): ComputedSignal<T> {
     let value: T;
     const subscribers = new Set<(value: T) => void>();
-    const computed = {} as Computation & BaseSignal<T>; 
+    const computed = {} as ComputedSignal<T>; 
 
     computed.recompute = () => {
         pushComputation(computed)
