@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import { createSignal } from '../core/signal';
+import { computedSignal } from '../core/computedSignal';
 
-export function useSignalState<T>(signal: ReturnType<typeof createSignal<T>>) {
+export function useSignalState<T>(
+    signal: 
+    ReturnType<typeof createSignal<T>> | 
+    ReturnType<typeof computedSignal<T>>
+) {
     const [value, setValue] = useState(signal.get());
 
     useEffect(() => {

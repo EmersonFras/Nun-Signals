@@ -1,6 +1,7 @@
 import { getCurrentComputation } from "./computationStack";
+import { WritableSignal } from "../types";
 
-export function createSignal<T>(initialValue: T) {
+export function createSignal<T>(initialValue: T): WritableSignal<T> {
     let value = initialValue;
     const subscribers = new Set<(value: T) => void>();
 

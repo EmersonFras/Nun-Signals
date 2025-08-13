@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { useSignalBinding, BindingSignal } from "../src/index";
+import { computedSignal, createSignal, useSignalBinding, BaseSignal } from "../src/index";
 
 // --- Simple test signal implementation ---
 function createTestSignal<T>(initial: T) {
@@ -22,7 +22,7 @@ function createTestSignal<T>(initial: T) {
 }
 
 // --- Test component ---
-function BoundLabel({ binding }: { binding: BindingSignal<number> }) {
+function BoundLabel({ binding }: { binding: BaseSignal<number> }) {
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -78,7 +78,7 @@ describe("useSignalBinding", () => {
   it("keeps stable binding identity", () => {
     const signal = createTestSignal(1);
 
-    let firstBinding: BindingSignal<number> | null = null;
+    let firstBinding: BaseSignal<number> | null = null;
     function TestComponent() {
       const binding = useSignalBinding(signal);
       if (!firstBinding) firstBinding = binding;
@@ -91,4 +91,26 @@ describe("useSignalBinding", () => {
     expect(firstBinding).toBeTruthy();
     expect(useSignalBinding).toBeTruthy();
   })
+
+  it("works with computedSignal", () => {
+    const signal = createSignal(2);
+    const double = computedSignal(() => signal.get() * 2);
+
+    function TestComponent() {
+        const binding = useSignalBinding(double);
+        return <BoundLabel binding={binding} />;
+    }
+
+    render(<TestComponent />);
+    const label = screen.getByTestId("label");
+
+    // Initial
+    expect(label).toHaveTextContent("4");
+
+    // Update source signal
+    act(() => {
+        signal.set(5);
+    });
+    expect(label).toHaveTextContent("10");
+    });
 })
